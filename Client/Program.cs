@@ -1,5 +1,6 @@
 using Client;
 using MassTransit;
+using MassTransit.Util;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -23,8 +24,10 @@ IHost host = Host.CreateDefaultBuilder(args)
         //});
 
         //=============================================
-        services.AddScoped<Worker>();
+        services.AddHostedService<Worker>();
 
+        // services.AddScoped<Worker>();
+        //  services.AddHostedService<Worker>();
         services.AddMassTransit(x =>
         {
             x.UsingRabbitMq((context, cfg) =>
@@ -54,6 +57,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
 
 await host.RunAsync();
+
 
 
 //partial class Program
@@ -94,3 +98,4 @@ await host.RunAsync();
 
 //            await host.RunAsync();
 //}
+

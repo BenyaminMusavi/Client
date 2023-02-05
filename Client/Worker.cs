@@ -4,14 +4,14 @@ using System.Text.Json;
 
 namespace Client
 {
-    public class Worker : BackgroundService
+    public class Worker : BackgroundService, IHostedService
     {
         private readonly ILogger<Worker> _logger;
-        //private readonly IPublishEndpoint _publishEndpoint;
-
-        public Worker(ILogger<Worker> logger)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public Worker(ILogger<Worker> logger, IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
